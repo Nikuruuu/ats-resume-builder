@@ -1,0 +1,1 @@
+export { HarvardTemplate } from "./HarvardTemplate";

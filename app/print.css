@@ -1,0 +1,49 @@
+/* Print styles for resume */
+@media print {
+  @page {
+    size: A4;
+    margin: 0.5in;
+  }
+
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-hidden {
+    display: none !important;
+  }
+
+  .resume-content {
+    font-size: 11pt;
+    line-height: 1.3;
+    color: black;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .resume-content h1 {
+    font-size: 18pt;
+    margin-bottom: 8pt;
+  }
+
+  .resume-content h2 {
+    font-size: 12pt;
+    margin-bottom: 6pt;
+    margin-top: 12pt;
+  }
+
+  .resume-content .section {
+    margin-bottom: 10pt;
+  }
+
+  .resume-content .no-break {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure full width on print */
+  .w-1\/2 {
+    width: 100% !important;
+  }
+}
