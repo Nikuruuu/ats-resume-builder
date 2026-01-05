@@ -1,7 +1,20 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, Award, ShieldCheck } from "lucide-react";
 import { Certification } from "@/types/resume";
+import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+} from "../ui/field";
+import { Button } from "../ui/button";
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+} from "../ui/input-group";
+import { MonthYearPicker } from "../custom/monthYearPicker";
 
 interface CertificationsFormProps {
   certifications: Certification[];
@@ -18,15 +31,17 @@ export function CertificationsForm({
 }: CertificationsFormProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <h2 className="text-xl font-semibold">Certifications & Trainings</h2>
-        <button
-          onClick={onAdd}
-          className="flex items-center gap-2 px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          <Plus size={16} />
+      <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <FieldSet>
+          <FieldLegend className="font-extrabold">Certification</FieldLegend>
+          <FieldDescription>
+            List relevant certifications that enhance your qualifications.
+          </FieldDescription>
+        </FieldSet>
+        <Button onClick={onAdd} className="w-full sm:w-auto">
+          <Plus />
           Add Certification
-        </button>
+        </Button>
       </CardHeader>
       <CardContent className="space-y-4">
         {certifications.map((cert, index) => (
@@ -34,59 +49,64 @@ export function CertificationsForm({
             <div className="flex justify-between items-center">
               <h3 className="font-medium">Certification {index + 1}</h3>
               {certifications.length > 1 && (
-                <button
+                <Button
                   onClick={() => onRemove(cert.id)}
-                  className="text-red-600 hover:text-red-800"
+                  className="text-primary hover:text-primary/80"
+                  variant="ghost"
                 >
-                  <Minus size={16} />
-                </button>
+                  <Minus />
+                </Button>
               )}
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Certification Name
-                </label>
-                <Input
-                  value={cert.name}
-                  onChange={(e) => onUpdate(cert.id, "name", e.target.value)}
-                  placeholder="AWS Certified Solutions Architect"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Issuing Organization
-                </label>
-                <Input
-                  value={cert.issuer}
-                  onChange={(e) => onUpdate(cert.id, "issuer", e.target.value)}
-                  placeholder="Amazon Web Services"
-                />
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Field>
+                <FieldLabel>Certification Name</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={cert.name}
+                    onChange={(e) => onUpdate(cert.id, "name", e.target.value)}
+                    placeholder="AWS Certified Solutions Architect"
+                  />
+                  <InputGroupAddon>
+                    <Award />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
+              <Field>
+                <FieldLabel>Issuing Organization</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={cert.issuer}
+                    onChange={(e) =>
+                      onUpdate(cert.id, "issuer", e.target.value)
+                    }
+                    placeholder="Amazon Web Services"
+                  />
+                  <InputGroupAddon>
+                    <ShieldCheck />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Date Obtained
-                </label>
-                <Input
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Field>
+                <FieldLabel>Date Obtained</FieldLabel>
+                <MonthYearPicker
                   value={cert.date}
-                  onChange={(e) => onUpdate(cert.id, "date", e.target.value)}
+                  onChange={(value) => onUpdate(cert.id, "date", value)}
                   placeholder="January 2024"
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Expiration Date (Optional)
-                </label>
-                <Input
-                  value={cert.expirationDate || ""}
-                  onChange={(e) =>
-                    onUpdate(cert.id, "expirationDate", e.target.value)
+              </Field>
+              <Field>
+                <FieldLabel>Expiration Date (Optional)</FieldLabel>
+                <MonthYearPicker
+                  value={cert.expirationDate}
+                  onChange={(value) =>
+                    onUpdate(cert.id, "expirationDate", value)
                   }
-                  placeholder="January 2027"
+                  placeholder="January 2030"
                 />
-              </div>
+              </Field>
             </div>
           </div>
         ))}

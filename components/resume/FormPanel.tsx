@@ -222,6 +222,10 @@ export function FormPanel({ resumeData, handlers }: FormPanelProps) {
             />
           </TabsContent>
         </Tabs>
+        <div className="mt-6 text-center text-sm text-gray-500">
+          Developed by{" "}
+          <span className="font-extrabold">Jeremiah Dela Cruz</span>
+        </div>
       </div>
     </div>
   );

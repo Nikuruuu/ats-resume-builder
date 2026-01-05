@@ -1,7 +1,28 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Plus, Minus } from "lucide-react";
+
+import {
+  Plus,
+  Minus,
+  User,
+  BriefcaseBusiness,
+  Building2,
+  Mail,
+} from "lucide-react";
 import { Reference } from "@/types/resume";
+import {
+  Field,
+  FieldLabel,
+  FieldSet,
+  FieldLegend,
+  FieldDescription,
+} from "@/components/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { Button } from "../ui/button";
+import { PhoneInput } from "../custom/phoneNumberInput";
 
 interface ReferencesFormProps {
   references: Reference[];
@@ -18,15 +39,18 @@ export function ReferencesForm({
 }: ReferencesFormProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <h2 className="text-xl font-semibold">References</h2>
-        <button
-          onClick={onAdd}
-          className="flex items-center gap-2 px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          <Plus size={16} />
+      <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <FieldSet>
+          <FieldLegend className="font-extrabold">References</FieldLegend>
+          <FieldDescription>
+            Provide professional references who can vouch for your skills and
+            work ethic.
+          </FieldDescription>
+        </FieldSet>
+        <Button onClick={onAdd} className="w-full sm:w-auto">
+          <Plus />
           Add Reference
-        </button>
+        </Button>
       </CardHeader>
       <CardContent className="space-y-4">
         {references.map((ref, index) => (
@@ -34,63 +58,84 @@ export function ReferencesForm({
             <div className="flex justify-between items-center">
               <h3 className="font-medium">Reference {index + 1}</h3>
               {references.length > 1 && (
-                <button
+                <Button
                   onClick={() => onRemove(ref.id)}
-                  className="text-red-600 hover:text-red-800"
+                  className="text-primary hover:text-primary/80"
+                  variant="ghost"
                 >
-                  <Minus size={16} />
-                </button>
+                  <Minus />
+                </Button>
               )}
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Full Name
-                </label>
-                <Input
-                  value={ref.name}
-                  onChange={(e) => onUpdate(ref.id, "name", e.target.value)}
-                  placeholder="Dr. Jane Smith"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Position
-                </label>
-                <Input
-                  value={ref.position}
-                  onChange={(e) => onUpdate(ref.id, "position", e.target.value)}
-                  placeholder="Senior Software Engineer"
-                />
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Field>
+                <FieldLabel>Full Name</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={ref.name}
+                    onChange={(e) => onUpdate(ref.id, "name", e.target.value)}
+                    placeholder="Dr. Jane Smith"
+                  />
+                  <InputGroupAddon>
+                    <User />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
+              <Field>
+                <FieldLabel>Position</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={ref.position}
+                    onChange={(e) =>
+                      onUpdate(ref.id, "position", e.target.value)
+                    }
+                    placeholder="Senior Software Engineer"
+                  />
+                  <InputGroupAddon>
+                    <BriefcaseBusiness />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
             </div>
-            <div className="grid grid-cols-3 gap-3">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Company
-                </label>
-                <Input
-                  value={ref.company}
-                  onChange={(e) => onUpdate(ref.id, "company", e.target.value)}
-                  placeholder="Tech Corporation"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Email</label>
-                <Input
-                  value={ref.email}
-                  onChange={(e) => onUpdate(ref.id, "email", e.target.value)}
-                  placeholder="jane.smith@company.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Phone</label>
-                <Input
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Field>
+                <FieldLabel>Company</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={ref.company}
+                    onChange={(e) =>
+                      onUpdate(ref.id, "company", e.target.value)
+                    }
+                    placeholder="Tech Corporation"
+                  />
+                  <InputGroupAddon>
+                    <Building2 />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
+              <Field>
+                <FieldLabel>Email</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={ref.email}
+                    onChange={(e) => onUpdate(ref.id, "email", e.target.value)}
+                    placeholder="jane.smith@company.com"
+                  />
+                  <InputGroupAddon>
+                    <Mail />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Field>
+                <FieldLabel>Phone</FieldLabel>
+                <PhoneInput
+                  name="phone"
                   value={ref.phone}
-                  onChange={(e) => onUpdate(ref.id, "phone", e.target.value)}
-                  placeholder="(555) 123-4567"
+                  onChange={(value) => onUpdate(ref.id, "phone", value)}
                 />
-              </div>
+              </Field>
             </div>
           </div>
         ))}

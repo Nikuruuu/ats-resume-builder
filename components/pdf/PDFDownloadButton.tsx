@@ -6,6 +6,7 @@ import { saveAs } from "file-saver";
 import { Download } from "lucide-react";
 import { PDFTemplate } from "./PDFTemplate";
 import { ResumeData } from "@/types/resume";
+import { Button } from "@/components/ui/button";
 
 interface PDFDownloadButtonProps {
   resumeData: ResumeData;
@@ -51,12 +52,12 @@ export const PDFDownloadButton: React.FC<PDFDownloadButtonProps> = ({
   };
 
   return (
-    <button
+    <Button
       onClick={handleDownload}
-      className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+      className="inline-flex items-center gap-2 px-4 py-2"
     >
       <Download size={16} />
       Download PDF
-    </button>
+    </Button>
   );
 };

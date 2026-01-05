@@ -1,8 +1,20 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, GraduationCap, School, MapPin } from "lucide-react";
 import { Education } from "@/types/resume";
 import { Button } from "../ui/button";
+import {
+  Field,
+  FieldLabel,
+  FieldSet,
+  FieldLegend,
+  FieldDescription,
+} from "@/components/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { MonthYearPicker } from "../custom/monthYearPicker";
 
 interface EducationFormProps {
   education: Education[];
@@ -19,9 +31,15 @@ export function EducationForm({
 }: EducationFormProps) {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <h2 className="text-xl font-semibold">Education</h2>
-        <Button onClick={onAdd} className="flex items-center gap-2 px-3 py-1">
+      <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <FieldSet>
+          <FieldLegend className="font-extrabold">Education</FieldLegend>
+          <FieldDescription>
+            List your highest education first. Include degree, school, and
+            graduation date.
+          </FieldDescription>
+        </FieldSet>
+        <Button onClick={onAdd} className="w-full sm:w-auto">
           <Plus />
           Add Education
         </Button>
@@ -32,69 +50,81 @@ export function EducationForm({
             <div className="flex justify-between items-center">
               <h3 className="font-medium">Education {index + 1}</h3>
               {education.length > 1 && (
-                <button
+                <Button
                   onClick={() => onRemove(edu.id)}
-                  className="text-red-600 hover:text-red-800"
+                  className="text-primary hover:text-primary/80"
+                  variant="ghost"
                 >
-                  <Minus size={16} />
-                </button>
+                  <Minus />
+                </Button>
               )}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Institution
-                </label>
-                <Input
-                  value={edu.institution}
-                  onChange={(e) =>
-                    onUpdate(edu.id, "institution", e.target.value)
-                  }
-                  placeholder="Harvard University"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">Degree</label>
-                <Input
-                  value={edu.degree}
-                  onChange={(e) => onUpdate(edu.id, "degree", e.target.value)}
-                  placeholder="Bachelor of Arts in Economics"
-                />
-              </div>
+              <Field>
+                <FieldLabel>Institution</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={edu.institution}
+                    onChange={(e) =>
+                      onUpdate(edu.id, "institution", e.target.value)
+                    }
+                    placeholder="University of Mindanao"
+                  />
+                  <InputGroupAddon>
+                    <School />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
+              <Field>
+                <FieldLabel>Degree</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={edu.degree}
+                    onChange={(e) => onUpdate(edu.id, "degree", e.target.value)}
+                    placeholder="BS in Information Technology"
+                  />
+                  <InputGroupAddon>
+                    <GraduationCap />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Location
-                </label>
-                <Input
-                  value={edu.location}
-                  onChange={(e) => onUpdate(edu.id, "location", e.target.value)}
-                  placeholder="Cambridge, MA"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Graduation Date
-                </label>
-                <Input
+              <Field>
+                <FieldLabel>Location</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={edu.location}
+                    onChange={(e) =>
+                      onUpdate(edu.id, "location", e.target.value)
+                    }
+                    placeholder="Davao City, Philippines"
+                  />
+                  <InputGroupAddon>
+                    <MapPin />
+                  </InputGroupAddon>
+                </InputGroup>
+              </Field>
+              <Field>
+                <FieldLabel>Graduation Date</FieldLabel>
+                <MonthYearPicker
                   value={edu.graduationDate}
-                  onChange={(e) =>
-                    onUpdate(edu.id, "graduationDate", e.target.value)
+                  onChange={(value) =>
+                    onUpdate(edu.id, "graduationDate", value)
                   }
                   placeholder="May 2024"
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  GPA (Optional)
-                </label>
-                <Input
-                  value={edu.gpa || ""}
-                  onChange={(e) => onUpdate(edu.id, "gpa", e.target.value)}
-                  placeholder="3.8/4.0"
-                />
-              </div>
+              </Field>
+              <Field>
+                <FieldLabel>GPA (Optional)</FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
+                    value={edu.gpa || ""}
+                    onChange={(e) => onUpdate(edu.id, "gpa", e.target.value)}
+                    placeholder="3.8/4.0"
+                  />
+                </InputGroup>
+              </Field>
             </div>
           </div>
         ))}
