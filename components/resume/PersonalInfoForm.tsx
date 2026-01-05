@@ -4,8 +4,15 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import {
+  Field,
+  FieldLabel,
+  FieldSet,
+  FieldLegend,
+  FieldDescription,
+} from "@/components/ui/field";
 import { PersonalInfo } from "@/types/resume";
-import { PhoneNumberInput } from "../custom/phoneNumberInput";
+import { PhoneInput } from "../custom/phoneNumberInput";
 import { Globe, Mail, MapPin, User, Linkedin, Github } from "lucide-react";
 
 interface PersonalInfoFormProps {
@@ -25,12 +32,17 @@ export function PersonalInfoForm({
   return (
     <Card>
       <CardHeader>
-        <h2 className="text-xl font-extrabold">Personal Information</h2>
+        <FieldSet>
+          <FieldLegend className="font-extrabold">
+            Personal Information
+          </FieldLegend>
+          <FieldDescription>Add essential contact details.</FieldDescription>
+        </FieldSet>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">Full Name</label>
+          <Field>
+            <FieldLabel>Full Name</FieldLabel>
             <InputGroup>
               <InputGroupInput
                 name="name"
@@ -42,9 +54,9 @@ export function PersonalInfoForm({
                 <User />
               </InputGroupAddon>
             </InputGroup>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">Email</label>
+          </Field>
+          <Field>
+            <FieldLabel>Email</FieldLabel>
             <InputGroup>
               <InputGroupInput
                 name="email"
@@ -57,37 +69,37 @@ export function PersonalInfoForm({
                 <Mail />
               </InputGroupAddon>
             </InputGroup>
-          </div>
+          </Field>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">Phone </label>
-            <PhoneNumberInput
+          <Field>
+            <FieldLabel>Phone</FieldLabel>
+            <PhoneInput
               name="phone"
               value={personalInfo.phone}
               onChange={(value) => onUpdate("phone", value)}
             />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">Address</label>
+          </Field>
+          <Field>
+            <FieldLabel>Address</FieldLabel>
             <InputGroup>
               <InputGroupInput
                 name="address"
                 value={personalInfo.address}
                 onChange={handleChange}
-                placeholder="City, State"
+                placeholder="City, Country"
               />
               <InputGroupAddon>
                 <MapPin />
               </InputGroupAddon>
             </InputGroup>
-          </div>
+          </Field>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">LinkedIn</label>
+          <Field>
+            <FieldLabel>LinkedIn</FieldLabel>
             <InputGroup>
               <InputGroupInput
                 name="linkedin"
@@ -99,9 +111,9 @@ export function PersonalInfoForm({
                 <Linkedin />
               </InputGroupAddon>
             </InputGroup>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">Website</label>
+          </Field>
+          <Field>
+            <FieldLabel>Website</FieldLabel>
             <InputGroup>
               <InputGroupInput
                 name="website"
@@ -113,9 +125,9 @@ export function PersonalInfoForm({
                 <Globe />
               </InputGroupAddon>
             </InputGroup>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">GitHub</label>
+          </Field>
+          <Field>
+            <FieldLabel>GitHub</FieldLabel>
             <InputGroup>
               <InputGroupInput
                 name="github"
@@ -127,7 +139,7 @@ export function PersonalInfoForm({
                 <Github />
               </InputGroupAddon>
             </InputGroup>
-          </div>
+          </Field>
         </div>
       </CardContent>
     </Card>

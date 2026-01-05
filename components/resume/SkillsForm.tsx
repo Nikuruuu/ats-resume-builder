@@ -1,8 +1,15 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { X } from "lucide-react";
+import { CirclePlus, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { FieldDescription, FieldLegend, FieldSet } from "../ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "../ui/input-group";
+import { Button } from "../ui/button";
 
 interface SkillsFormProps {
   skills: string[];
@@ -30,38 +37,49 @@ export function SkillsForm({ skills, onAdd, onRemove }: SkillsFormProps) {
   return (
     <Card>
       <CardHeader>
-        <h2 className="text-xl font-semibold">Skills</h2>
+        <FieldSet>
+          <FieldLegend className="font-extrabold">Skills</FieldLegend>
+          <FieldDescription>Add your relevant skills.</FieldDescription>
+        </FieldSet>
       </CardHeader>
       <CardContent className="space-y-4">
-        <div className="flex gap-2">
-          <Input
+        <InputGroup>
+          <InputGroupInput
             value={skillInput}
             onChange={(e) => setSkillInput(e.target.value)}
             placeholder="Add a skill..."
             onKeyDown={handleKeyDown}
           />
-          <button
-            onClick={handleAddSkill}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-          >
-            Add
-          </button>
-        </div>
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              title="Add skill"
+              aria-label="Add skill"
+              size="sm"
+              className="text-primary hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              onClick={handleAddSkill}
+            >
+              <CirclePlus size={16} />
+            </InputGroupButton>
+          </InputGroupAddon>
+        </InputGroup>
+
         <div className="flex flex-wrap gap-2">
           {skills.map((skill, index) => (
             <Badge
               key={index}
-              variant="secondary"
-              className="inline-flex items-center gap-1 text-sm"
+              variant="outline"
+              className="inline-flex items-center gap-1 text-sm border border-primary bg-transparent text-primary"
             >
               {skill}
-              <button
+              <Button
                 onClick={() => onRemove(skill)}
-                className="ml-1 hover:text-destructive transition-colors"
+                variant="ghost"
+                className="h-4 w-4 text-primary hover:text-primary/80"
+                title={`Remove ${skill}`}
                 aria-label={`Remove ${skill}`}
               >
-                <X size={14} />
-              </button>
+                <Trash2 />
+              </Button>
             </Badge>
           ))}
         </div>
