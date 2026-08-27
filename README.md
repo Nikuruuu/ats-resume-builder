@@ -1,36 +1,140 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ATS Resume Builder
 
-## Getting Started
+Create an ATS-friendly, recruiter-ready resume with a clean split-screen editor, live preview, and polished print output.
 
-First, run the development server:
+
+🌐 **Live Demo:** [https://resume-builder.jeremiahdelacruz.com/](https://resume-builder.jeremiahdelacruz.com/)
+
+## 🚀 Key Features
+
+- **Split-screen resume workflow** with an editable form panel and live preview side by side on desktop
+- **Mobile-friendly editing experience** with toggle buttons for switching between form and preview modes
+- **ATS-focused Harvard-style template** designed for clean parsing and professional presentation
+- **Dynamic resume sections** for personal info, objective, education, experience, skills, certifications, and references
+- **Custom resume state management** powered by a centralized React hook for structured form updates
+- **PDF/print-ready output** with dedicated print styles for clean resume export
+- **Reusable component architecture** built with modular form, template, and UI components
+- **Type-safe data model** using TypeScript interfaces for resume sections and entries
+
+## 🛠️ Tech Stack
+
+### Frontend
+- Next.js 16
+- React 19
+- TypeScript
+- Lucide React icons
+
+### Styling
+- Tailwind CSS v4
+- tw-animate-css
+- CSS variables and custom print styles
+- shadcn/ui-style component architecture
+
+### Dev Tools
+- ESLint
+- TypeScript compiler
+- Turbopack for development and production builds
+- Next.js App Router
+
+### Backend / Database
+- No backend or database layer is currently implemented
+- This project is a client-side resume builder rendered through Next.js
+
+## 📂 Project / Architecture Structure
+
+```text
+ats-resume-builder/
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── page.tsx
+│   ├── print.css
+│   └── resume-builder.tsx
+├── components/
+│   ├── pdf/
+│   ├── resume/
+│   ├── templates/
+│   └── ui/
+├── hooks/
+│   └── useResumeData.ts
+├── lib/
+│   └── utils.ts
+├── public/
+├── types/
+│   └── resume.ts
+├── components.json
+├── next.config.ts
+├── package.json
+└── tsconfig.json
+```
+
+## ⚙️ Getting Started / Local Setup
+
+### Prerequisites
+
+- **Node.js** 18.18+ recommended
+- **npm**, **pnpm**, **yarn**, or **bun**
+- No database required
+
+### Step-by-step setup
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Nikuruuu/ats-resume-builder.git
+cd ats-resume-builder
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Configure environment variables:
+
+```bash
+cp .env.example .env.local
+```
+
+4. Add your local environment values:
+
+```env
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+5. Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+6. Open the app in your browser:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build and production scripts
 
-## Learn More
+```bash
+npm run build
+npm run start
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+- `npm run dev` — start the local development server with Turbopack
+- `npm run build` — create a production build
+- `npm run start` — run the production server
+- `npm run lint` — run ESLint
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔐 Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+# App URL used for local development and deployment metadata
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Optional: add future integrations here
+# NEXT_PUBLIC_*=
+# API_*=
+```
